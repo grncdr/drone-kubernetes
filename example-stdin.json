@@ -1,0 +1,11 @@
+{
+  "vargs": {
+    "args": [
+      "--kubeconfig=/secrets-volume/kubeconfig"
+    ],
+    "resource_files": [
+      "/drone/kubernetes-deployment.yml",
+      "/drone/kubernetes-service.yml"
+    ]
+  }
+}
