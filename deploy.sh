@@ -27,4 +27,4 @@ kubectl config set-credentials default \
   --client-certificate=`pwd`/client.pem \
   --client-key=`pwd`/client-key.pem
 
-kubectl --cluster=default --user=default apply -f `j .resource_file // "/drone/kubernetes.yaml"`
+kubectl --cluster=default --user=default apply -f `j .vargs.resource_file // "/drone/kubernetes.yaml"`
