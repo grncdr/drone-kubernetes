@@ -29,4 +29,4 @@ kubectl config set-credentials default \
 
 cd $DRONE_DIR
 
-kubectl --cluster=default --user=default apply -f `get_arg resource_file // "/drone/kubernetes.yaml"`
+kubectl --cluster=default --user=default apply -f `get_arg resource_file // "kubernetes.yaml"`
