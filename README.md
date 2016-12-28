@@ -5,18 +5,17 @@ Worlds simplest kubernetes deploy plugin for Drone CI.
 ## How to deploy to kubernetes
 
 1. Somewhere in your build, produce files suitable for `kubectl apply -f
-   $file`, e.g. a file named `/drone/deployment.yml`.
+   $file`, e.g. a file named `/drone/kubernetes.yml`.
+2. Configure secrets containing the necessary authentication data.
 2. Add something like this to `.drone.yml`:
    ```yaml
    deploy:
      kubernetes:
-       image: talon-one/drone-kubernetes-deploy
-       volumes:
-         - /path/to/kube-config-dir:/kubeconfig
-       args:
-         - "--kubeconfig=/kubeconfig/kubeconfig"
-       resource_files:
-         - /drone/kubernetes-deployment.yml
-         - /drone/kubernetes-service.yml
+       image: grncdr/drone-kubernetes
+       api_server: https://kubernetes.mycluster.com
+       certificate_authority_data: "$$KUBECTL_CA_CERT"
+       client_certificate_data: "$$KUBECTL_CLIENT_CERT"
+       client_key_data: "$$KUBECTL_CLIENT_KEY"
+       resource_file: /drone/kubernetes.yml
    ```
 3. That's it.
