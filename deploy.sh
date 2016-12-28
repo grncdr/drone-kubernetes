@@ -7,24 +7,24 @@ while [[ $# -gt 0 ]]; do
   [[ "$current" = "--" ]] && break
 done
 
-payload="$@"
+args=`echo $@ | jq -c .vargs`
 
 set -e
 
-j () {
-  echo "$payload" | jq -r "$1"
+get_arg () {
+  echo "$args" | jq -r ".$1"
 }
 
-j .vargs.certificate_authority_data > ca.pem
-j .vargs.client_certificate_data > client.pem
-j .vargs.client_key_data > client-key.pem
+get_arg certificate_authority_data > ca.pem
+get_arg client_certificate_data > client.pem
+get_arg client_key_data > client-key.pem
 
 kubectl config set-cluster default \
-  --server=`j .vargs.api_server` \
+  --server=`get_arg api_server` \
   --certificate-authority=`pwd`/ca.pem
 
 kubectl config set-credentials default \
   --client-certificate=`pwd`/client.pem \
   --client-key=`pwd`/client-key.pem
 
-kubectl --cluster=default --user=default apply -f `j .vargs.resource_file // "/drone/kubernetes.yaml"`
+kubectl --cluster=default --user=default apply -f `get_arg resource_file // "/drone/kubernetes.yaml"`
