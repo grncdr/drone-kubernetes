@@ -27,4 +27,11 @@ kubectl config set-credentials default \
   --client-certificate=`pwd`/client.pem \
   --client-key=`pwd`/client-key.pem
 
+echo pwd:
+pwd
+echo ls:
+ls
+echo ls /drone:
+ls /drone
+
 kubectl --cluster=default --user=default apply -f `get_arg resource_file // "/drone/kubernetes.yaml"`
