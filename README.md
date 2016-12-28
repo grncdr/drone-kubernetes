@@ -7,7 +7,8 @@ Worlds simplest kubernetes deploy plugin for Drone CI.
 1. Somewhere in your build, produce files suitable for `kubectl apply -f
    $file`, e.g. a file named `/drone/kubernetes.yml`.
 2. Configure secrets containing the necessary authentication data.
-2. Add something like this to `.drone.yml`:
+3. Add something like this to `.drone.yml`:
+
    ```yaml
    deploy:
      kubernetes:
@@ -18,4 +19,4 @@ Worlds simplest kubernetes deploy plugin for Drone CI.
        client_key_data: "$$KUBECTL_CLIENT_KEY"
        resource_file: /drone/kubernetes.yml
    ```
-3. That's it.
+4. That's it.
